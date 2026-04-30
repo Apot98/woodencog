@@ -1,7 +1,7 @@
 package net.chauvedev.woodencog.compat.createlowheated;
 
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
-import net.chauvedev.woodencog.config.WoodenCogCommonConfigs;
+import net.chauvedev.woodencog.WoodenCogCommonConfigs;
 import net.chauvedev.woodencog.utils.CogUtil;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import zeh.createlowheated.content.processing.basicburner.BasicBurnerBlockEntity;

@@ -4,8 +4,10 @@ import com.google.gson.JsonObject;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import net.chauvedev.woodencog.WoodenCog;
 import net.chauvedev.woodencog.compat.Compat;
-import net.chauvedev.woodencog.config.WoodenCogCommonConfigs;
-import net.dries007.tfc.common.capabilities.heat.Heat;
+import net.chauvedev.woodencog.WoodenCogCommonConfigs;
+import net.dries007.tfc.common.component.heat.Heat;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -14,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.Contract;
 
 import java.util.List;
@@ -148,14 +150,14 @@ public class CogUtil {
     }
 
     public static Item findNotNullItem(ResourceLocation rs){
-        return ForgeRegistries.ITEMS.getValue(rs) == null ? Items.BARRIER : ForgeRegistries.ITEMS.getValue(rs);
+        return BuiltInRegistries.ITEM.get(rs) == null ? Items.BARRIER : BuiltInRegistries.ITEM.get(rs);
     }
 
     public static Block findNotNullBlock(ResourceLocation rs){
-        return ForgeRegistries.BLOCKS.getValue(rs) == null ? Blocks.BARRIER : ForgeRegistries.BLOCKS.getValue(rs);
+        return BuiltInRegistries.BLOCK.get(rs) == null ? Blocks.BARRIER : BuiltInRegistries.BLOCK.get(rs);
     }
 
     public static Fluid findNotNullFluid(ResourceLocation rs){
-        return ForgeRegistries.FLUIDS.getValue(rs) == null ? Fluids.EMPTY : ForgeRegistries.FLUIDS.getValue(rs);
+        return BuiltInRegistries.FLUID.get(rs) == null ? Fluids.EMPTY : BuiltInRegistries.FLUID.get(rs);
     }
 }

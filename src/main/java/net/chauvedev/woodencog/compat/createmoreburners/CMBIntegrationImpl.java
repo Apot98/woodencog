@@ -1,6 +1,5 @@
 package net.chauvedev.woodencog.compat.createmoreburners;
 
-import net.chauvedev.woodencog.utils.CogUtil;
 import net.dragonegg.moreburners.content.block.entity.BaseBurnerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 

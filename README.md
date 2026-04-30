@@ -1,29 +1,25 @@
-# Wooden Cog
-Forked from [woodencog](https://github.com/Sparks-and-Rotation/woodencog)
 
-## INFO
-this mod is a compatibility mod for tfc and create.
+Installation information
+=======
 
-Some of its code came from [SeriousCreeper](https://www.youtube.com/@SeriousCreeper)
-go check him out his videos are pretty cool. Also, here's the original [mod](https://www.curseforge.com/minecraft/mc-mods/tfc-create)
+This template repository can be directly cloned to get you started with a new
+mod. Simply create a new repository cloned from this one, by following the
+instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
-Some of the code also came from the [Tinker's construct](https://github.com/SlimeKnights/TinkersConstruct) mod (the small crucible) I updated it to my needs.
+Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
 
-This mod is still in early stages and probably need a lot refactoring but still can be used.
-I'll soon update my generators (yeah the Node.js mess in generators dir) to generate all missing crafts in this mod.
+If at any point you are missing libraries in your IDE, or you've run into problems you can
+run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
+{this does not affect your code} and then start the process again.
 
-currently it includes :
-- Mixer alloying recipes
-- Custom basin to allow more fluids into it (4)
-- Some fixes for create mod that where needed for liquid only crafts
-- Some fixes on filters to allow tfc fluid usage (still need to check if it didn't broke anything else)
-- TFC heating capability for pressing, mixing and compacting
-- TFC Jei compatibility for new versions
-- Some TFC crash fixes to work with create
+Mapping Names:
+============
+By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
+in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
+license. For the latest license text, refer to the mapping file itself, or the reference copy here:
+https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
 
-I'm currently working on a partial (maybe entire) rewrite of the project to make it more compatible with JEI and other create addons
-- (WIP) Sequenced assembly recipes.
-
-If you know any issue with other mods open an issue on this repo I'll look into it
-
-Pull requests are welcomed, but open an issue before, maybe I am working on it already.
+Additional Resources: 
+==========
+Community Documentation: https://docs.neoforged.net/  
+NeoForged Discord: https://discord.neoforged.net/

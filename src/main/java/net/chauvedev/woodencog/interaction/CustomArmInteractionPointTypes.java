@@ -1,6 +1,7 @@
 package net.chauvedev.woodencog.interaction;
 
 import com.simibubi.create.api.registry.CreateBuiltInRegistries;
+import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPoint;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPointType;
 import net.chauvedev.woodencog.WoodenCog;
@@ -57,14 +58,14 @@ public class CustomArmInteractionPointTypes {
         }
 
         @Override
-        public ItemStack extract(int slot, int amount, boolean simulate) {
-            getHandler();
-            return super.extract(slot, amount, simulate);
+        public ItemStack extract(ArmBlockEntity armBlockEntity, int slot, int amount, boolean simulate) {
+            getHandler(armBlockEntity);
+            return super.extract(armBlockEntity, slot, amount, simulate);
         }
 
         @Override
-        public ItemStack insert(ItemStack stack, boolean simulate) {
-            return super.insert(stack, simulate);
+        public ItemStack insert(ArmBlockEntity armBlockEntity, ItemStack stack, boolean simulate) {
+            return super.insert(armBlockEntity, stack, simulate);
         }
 
     }
@@ -86,13 +87,13 @@ public class CustomArmInteractionPointTypes {
         }
 
         @Override
-        public ItemStack extract(int slot, int amount, boolean simulate) {
-            return super.extract(slot, amount, simulate);
+        public ItemStack extract(ArmBlockEntity armBlockEntity, int slot, int amount, boolean simulate) {
+            return super.extract(armBlockEntity, slot, amount, simulate);
         }
 
         @Override
-        public ItemStack insert(ItemStack stack, boolean simulate) {
-            PartialItemHandler handler = (PartialItemHandler) this.getHandler();
+        public ItemStack insert(ArmBlockEntity armBlockEntity, ItemStack stack, boolean simulate) {
+            PartialItemHandler handler = (PartialItemHandler) this.getHandler(armBlockEntity);
             if(CogUtil.logConditional(handler == null,this.getClass(),"Mechanical Arm can not input, interaction point handler is null")) return ItemStack.EMPTY;
             return handler.insert(3).insertItem(3, stack, simulate);
         }

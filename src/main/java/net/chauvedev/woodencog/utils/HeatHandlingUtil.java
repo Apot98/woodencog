@@ -1,34 +1,42 @@
 package net.chauvedev.woodencog.utils;
 
 import net.chauvedev.woodencog.WoodenCog;
-import net.chauvedev.woodencog.config.WoodenCogCommonConfigs;
+import net.chauvedev.woodencog.WoodenCogCommonConfigs;
 import net.chauvedev.woodencog.datagen.DataGenStaticData;
-import net.dries007.tfc.common.capabilities.heat.HeatCapability;
+import net.dries007.tfc.common.component.heat.HeatCapability;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class HeatHandlingUtil {
 
     private static List<Integer> getMaterialProperties(ItemStack itemStack){
-        if(itemStack.hasTag()) {
-            CompoundTag compoundTag = itemStack.getTag();
-            if(compoundTag == null) {
+        if(itemStack.getTags() != null) {
+            Stream<TagKey<Item>> tags = itemStack.getTags();
+            if (tags.findAny().isEmpty()) {
+            //if(compoundTag == null) {
                 WoodenCog.LOGGER.warn("Null CompoundTag -> fallback to default");
                 return List.of(2700,897);
             }
+            List<TagKey<Item>> ingotTags = itemStack.getTags().filter(tag -> tag.toString().startsWith(INGOT_PREFIX)).toList();
+            for (TagKey<Item> ingotTag : ingotTags) {
+                String key = ingotTag.toString().substring(14);
+                return WoodenCogCommonConfigs.MATERIAL_PROPERTIES.get(key).get();
+            }
+            /*
             for (String tag : compoundTag.getAllKeys()){
                 if(tag.startsWith(INGOT_PREFIX)){
                     String key = tag.substring(14);
                     return WoodenCogCommonConfigs.MATERIAL_PROPERTIES.get(key).get();
                 }
             }
-
+             */
         }
         return List.of(2700,897); //Aluminium
     }
@@ -47,7 +55,7 @@ public class HeatHandlingUtil {
                 DataGenStaticData.Metal metal = DataGenStaticData.METAL_REGISTRY.get(key);
                 if(metal != null) return metal.getDensity() * metal.getHeatCapacity();
 
-                ForgeConfigSpec.ConfigValue<List<Integer>> configValue = WoodenCogCommonConfigs.MATERIAL_PROPERTIES.get(key);
+                ModConfigSpec.ConfigValue<List<Integer>> configValue = WoodenCogCommonConfigs.MATERIAL_PROPERTIES.get(key);
                 if(configValue == null) return DEFAULT_VALUE;
                 List<Integer> properties = configValue.get();
                 if(properties.size() != 2) {
@@ -71,8 +79,8 @@ public class HeatHandlingUtil {
         float sumBot = 0;
         for (ItemStack itemStack : itemStacks){
             float temp1 = 0;
-            if(itemStack.getCapability(HeatCapability.CAPABILITY).resolve().isPresent()){
-                temp1 = itemStack.getCapability(HeatCapability.CAPABILITY).resolve().get().getTemperature();
+            if(HeatCapability.get(itemStack) != null){
+                temp1 = Objects.requireNonNull(HeatCapability.get(itemStack)).getTemperature();
                 //System.out.println("Temp: "+temp1);
             }
             float mult = getMaterialDensityCapacity(itemStack);
@@ -94,8 +102,9 @@ public class HeatHandlingUtil {
         float sumBot = 0;
         for (ItemStack itemStack : itemStacks){
             float temp1 = 0;
-            if(itemStack.getCapability(HeatCapability.CAPABILITY).resolve().isPresent()){
-                temp1 = itemStack.getCapability(HeatCapability.CAPABILITY).resolve().get().getTemperature();
+            if(HeatCapability.get(itemStack) != null){
+                temp1 = Objects.requireNonNull(HeatCapability.get(itemStack)).getTemperature();
+                //System.out.println("Temp: "+temp1);
             }
             float mult = getMaterialDensityCapacity(itemStack);
             sumTop += mult*temp1;

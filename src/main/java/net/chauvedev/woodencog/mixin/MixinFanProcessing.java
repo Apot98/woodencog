@@ -5,19 +5,19 @@ import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
 import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes;
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessing;
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
-import net.chauvedev.woodencog.config.WoodenCogCommonConfigs;
-import net.chauvedev.woodencog.datapack.DataPackRegistries;
-import net.dries007.tfc.common.capabilities.food.FoodCapability;
-import net.dries007.tfc.common.capabilities.food.FoodTraits;
-import net.dries007.tfc.common.capabilities.heat.HeatCapability;
-import net.dries007.tfc.common.capabilities.heat.IHeat;
+import net.chauvedev.woodencog.WoodenCogCommonConfigs;
+//import net.chauvedev.woodencog.datapack.DataPackRegistries;
+import net.dries007.tfc.common.component.food.FoodCapability;
+import net.dries007.tfc.common.component.food.FoodTraits;
+import net.dries007.tfc.common.component.heat.HeatCapability;
+import net.dries007.tfc.common.component.heat.IHeat;
 import net.dries007.tfc.common.recipes.HeatingRecipe;
-import net.dries007.tfc.common.recipes.inventory.ItemStackInventory;
+//import net.dries007.tfc.common.recipes.inventory.ItemStackInventory;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,14 +29,16 @@ public class MixinFanProcessing {
 
     @Unique
     private static void applyTemp(ItemStack inputStack, IHeat cap, FanProcessingType type, RegistryAccess registryAccess) {
-        if(!inputStack.getCapability(HeatCapability.CAPABILITY).isPresent()) return;
+        if(!HeatCapability.has(inputStack)) return;
 
         if(type.equals(AllFanProcessingTypes.BLASTING)) {
-            if(!DataPackRegistries.isInTempBlacklist(inputStack, registryAccess)) {
+            //if(!DataPackRegistries.isInTempBlacklist(inputStack, registryAccess))
+            {
                 HeatCapability.addTemp(cap, 1700);
             }
         } else if (type.equals(AllFanProcessingTypes.SMOKING)) {
-            if(!DataPackRegistries.isInTempBlacklist(inputStack, registryAccess)) {
+            //if(!DataPackRegistries.isInTempBlacklist(inputStack, registryAccess))
+            {
                 HeatCapability.addTemp(cap, 200);
             }
         } else if (type.equals(AllFanProcessingTypes.SPLASHING)) {
@@ -55,9 +57,9 @@ public class MixinFanProcessing {
 
         if (recipe!=null){
             if (recipe.isValidTemperature(cap.getTemperature())) {
-                ItemStack output = recipe.assemble(new ItemStackInventory(inputStack), null);
+                ItemStack output = recipe.assembleItem(inputStack);
                 if(output.isEmpty()) return inputStack; //No output for this recipe do not change input
-                FluidStack fluidStack = recipe.assembleFluid(new ItemStackInventory(inputStack));
+                FluidStack fluidStack = recipe.assembleFluid(inputStack);
                 if(!fluidStack.isEmpty()) {
                     return ItemStack.EMPTY; //Melting recipe input is distorted
                 }
@@ -80,19 +82,19 @@ public class MixinFanProcessing {
 
         ItemStack inputStack = transported.stack;
 
-        if(inputStack.getCapability(HeatCapability.CAPABILITY).isPresent() && WoodenCogCommonConfigs.HANDLE_TEMPERATURE.get()){
-            if(inputStack.getCapability(HeatCapability.CAPABILITY).resolve().isEmpty()) {
-                cir.setReturnValue(TransportedItemStackHandlerBehaviour.TransportedResult.doNothing());
+        if(HeatCapability.has(inputStack) && WoodenCogCommonConfigs.HANDLE_TEMPERATURE.get()){
+            if(HeatCapability.get(inputStack) == null) {
+                //cir.setReturnValue(TransportedItemStackHandlerBehaviour.TransportedResult.doNothing());
                 return;
             }
 
-            IHeat cap = inputStack.getCapability(HeatCapability.CAPABILITY).resolve().get();
+            IHeat cap = HeatCapability.get(inputStack);
 
             MixinFanProcessing.applyTemp(inputStack, cap, type, world.registryAccess());
             ItemStack result = MixinFanProcessing.applyTFCHeatingRecipe(inputStack, cap);
 
             if(result.equals(inputStack)){
-                cir.setReturnValue(TransportedItemStackHandlerBehaviour.TransportedResult.doNothing());
+                //cir.setReturnValue(TransportedItemStackHandlerBehaviour.TransportedResult.doNothing());
                 return;
             }
 
@@ -116,10 +118,10 @@ public class MixinFanProcessing {
     private static void applyProcessing(ItemEntity entity, FanProcessingType type, CallbackInfoReturnable<Boolean> cir) {
         ItemStack inputStack = entity.getItem();
 
-        if(inputStack.getCapability(HeatCapability.CAPABILITY).isPresent() && WoodenCogCommonConfigs.HANDLE_TEMPERATURE.get()){
-            if(inputStack.getCapability(HeatCapability.CAPABILITY).resolve().isEmpty()) return;
+        if(HeatCapability.has(inputStack) && WoodenCogCommonConfigs.HANDLE_TEMPERATURE.get()){
+            if(!HeatCapability.has(inputStack)) return;
 
-            IHeat cap = inputStack.getCapability(HeatCapability.CAPABILITY).resolve().get();
+            IHeat cap = HeatCapability.get(inputStack);
 
             MixinFanProcessing.applyTemp(inputStack, cap, type, entity.level().registryAccess());
             ItemStack result = MixinFanProcessing.applyTFCHeatingRecipe(inputStack, cap);

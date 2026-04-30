@@ -2,8 +2,9 @@ package net.chauvedev.woodencog.mixin.armor;
 
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.armor.BacktankItem;
-import net.chauvedev.woodencog.config.WoodenCogCommonConfigs;
+import net.chauvedev.woodencog.WoodenCogCommonConfigs;
 import net.chauvedev.woodencog.utils.DivingGearUtil;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -19,14 +20,14 @@ import java.util.Locale;
 public class MixinBacktankItemLayered {
 
     @Inject(method = "getArmorTextureLocation", at = @At("HEAD"), cancellable = true)
-    public void getArmorTextureLocation(LivingEntity entity, EquipmentSlot slot, ItemStack stack, int layer, CallbackInfoReturnable<String> cir) {
+    public void getArmorTextureLocation(LivingEntity entity, EquipmentSlot slot, ItemStack stack, int layer, CallbackInfoReturnable<ResourceLocation> cir) {
         if(entity instanceof Player player &&
                 DivingGearUtil.isDivingGear(stack.getItem()) &&
                 !DivingGearUtil.isWearingNetheritePants(player) &&
                 stack.getItem() == AllItems.NETHERITE_BACKTANK.get() &&
                 WoodenCogCommonConfigs.NETHERITE_RESKIN.get()
         ) {
-            cir.setReturnValue(String.format(Locale.ROOT, "woodencog:textures/models/armor/netherite_diving_layer_%d.png", layer));
+            cir.setReturnValue(ResourceLocation.parse(String.format(Locale.ROOT, "woodencog:textures/models/armor/netherite_diving_layer_%d.png", layer)));
         }
     }
 }

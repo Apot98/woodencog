@@ -2,7 +2,6 @@ package net.chauvedev.woodencog.utils;
 
 import com.simibubi.create.Create;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class CreateBlocksAccess {
     public static final Block MECHANICAL_MIXER = CogUtil.findNotNullBlock(Create.asResource("mechanical_mixer"));

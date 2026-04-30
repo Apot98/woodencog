@@ -3,9 +3,11 @@ package net.chauvedev.woodencog.utils;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+/*
+import net.chauvedev.woodencog.recipes.heatedRecipes.HeatedProcessingRecipe;
 import net.chauvedev.woodencog.recipes.heatedRecipes.output.DynamicProcessingOutput;
 import net.chauvedev.woodencog.recipes.heatedRecipes.output.HeatedProcessingOutput;
-import net.chauvedev.woodencog.recipes.heatedRecipes.HeatedProcessingRecipe;
+ */
 import net.createmod.catnip.animation.AnimationTickHolder;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +29,7 @@ public class Color {
 
         return (a << 24) | (r << 16) | (g << 8) | b;
     }
-
+/*
     public static void drawCopyHeatBoxPress(HeatedProcessingRecipe<?> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics) {
         drawCopyHeatBoxes(recipe, recipeSlotsView, guiGraphics, (i, size) -> {
             int x = 131 + 19 * i;
@@ -75,7 +77,7 @@ public class Color {
 
         guiGraphics.pose().popPose();
     }
-
+*/
     private static void drawBorder(GuiGraphics guiGraphics, int x, int y, float time) {
         int color = Color.tempColorgradient(time);
         guiGraphics.fill(x, y, x + 16, y + 1, color);

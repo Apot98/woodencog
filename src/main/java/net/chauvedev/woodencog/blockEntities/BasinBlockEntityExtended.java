@@ -1,12 +1,9 @@
 package net.chauvedev.woodencog.blockEntities;
 
-import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlock;
-import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
 import com.simibubi.create.foundation.gui.AllIcons;
-import net.chauvedev.woodencog.mixin.blockEnitites.accessors.BasinBlockEntityAccessor;
 import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
