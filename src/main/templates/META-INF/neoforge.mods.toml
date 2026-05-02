@@ -95,7 +95,7 @@ Example mod description.
 #openGLVersion="[3.2,)"
 
 [[accessTransformers]]
-
     file="META-INF/accesstransformer.cfg"
+
 [[mixins]]
     config="woodencog.mixins.json"

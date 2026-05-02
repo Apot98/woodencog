@@ -52,6 +52,7 @@ public class WoodenCog {
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "woodencog" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
+    /*
     // Creates a new Block with the id "woodencog:example_block", combining the namespace and path
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
     // Creates a new BlockItem with the id "woodencog:example_block", combining the namespace and path
@@ -69,6 +70,7 @@ public class WoodenCog {
             .displayItems((parameters, output) -> {
                 output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
+     */
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -111,6 +113,7 @@ public class WoodenCog {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+        /*
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
 
@@ -121,6 +124,9 @@ public class WoodenCog {
         LOGGER.info("{}{}", WoodenCogCommonConfigs.MAGIC_NUMBER_INTRODUCTION.get(), WoodenCogCommonConfigs.MAGIC_NUMBER.getAsInt());
 
         WoodenCogCommonConfigs.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
+         */
+
+        //DataGenerators.registerSerializers();
     }
 
     public static void onRegister(final RegisterEvent event) {
@@ -129,9 +135,11 @@ public class WoodenCog {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        /*
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(EXAMPLE_BLOCK_ITEM);
         }
+         */
     }
 
     public void onClientSetup(final FMLClientSetupEvent event) {
@@ -141,8 +149,10 @@ public class WoodenCog {
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
+        /*
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
+         */
     }
 
     public static ResourceLocation asResource(String path) {

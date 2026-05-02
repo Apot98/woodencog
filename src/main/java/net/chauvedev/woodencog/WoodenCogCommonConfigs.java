@@ -37,9 +37,11 @@ public class WoodenCogCommonConfigs {
     public static final ModConfigSpec.ConfigValue<Double> BLAZE_BURNER_SEETHING = BUILDER
             .define("blaze_burner_seething", 2000.0D);
 
+    /*
     public static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
             .comment("Whether to log the dirt block on common setup")
             .define("logDirtBlock", true);
+     */
 
     public static final Map<String, ModConfigSpec.ConfigValue<List<Integer>>> MATERIAL_PROPERTIES = new HashMap<>();
 
@@ -129,18 +131,25 @@ public class WoodenCogCommonConfigs {
             .comment("Change netherite divingGear to look like red steel armor. (wearing netherite pants disables re-skin)")
             .define("netherite_reskin", true);
 
+    /*
     public static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
             .comment("A magic number")
             .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
 
+     */
+
+    /*
     public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
             .comment("What you want the introduction message to be for the magic number")
             .define("magicNumberIntroduction", "The magic number is... ");
+     */
 
+    /*
     // a list of strings that are treated as resource locations for items
     public static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
             .comment("A list of items to log on common setup.")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", WoodenCogCommonConfigs::validateItemName);
+     */
 
     static final ModConfigSpec SPEC = BUILDER.build();
 

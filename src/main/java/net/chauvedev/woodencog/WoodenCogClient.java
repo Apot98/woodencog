@@ -24,8 +24,10 @@ public class WoodenCogClient {
 
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
+        /*
         // Some client setup code
         WoodenCog.LOGGER.info("HELLO FROM CLIENT SETUP");
         WoodenCog.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+         */
     }
 }
