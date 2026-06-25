@@ -28,31 +28,47 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinFanProcessing {
 
     @Unique
-    private static void applyTemp(ItemStack inputStack, IHeat cap, FanProcessingType type, RegistryAccess registryAccess) {
-        if(!HeatCapability.has(inputStack)) return;
+    private static boolean applyTemp(ItemStack inputStack, IHeat cap, FanProcessingType type, RegistryAccess registryAccess) {
+        if(!HeatCapability.has(inputStack)) return false;
 
+        boolean heatApplied = false;
         if(type.equals(AllFanProcessingTypes.BLASTING)) {
+            heatApplied = true;
+            int target = 1700;
             //if(!DataPackRegistries.isInTempBlacklist(inputStack, registryAccess))
             {
-                HeatCapability.addTemp(cap, 1700);
+                HeatCapability.addTemp(cap, target);
             }
         } else if (type.equals(AllFanProcessingTypes.SMOKING)) {
-            //if(!DataPackRegistries.isInTempBlacklist(inputStack, registryAccess))
-            {
-                HeatCapability.addTemp(cap, 200);
+            int target = 200;
+            if (cap.getTemperature() < target) {
+                //if(!DataPackRegistries.isInTempBlacklist(inputStack, registryAccess))
+                {
+                    HeatCapability.addTemp(cap, target);
+                    heatApplied = true;
+                }
             }
         } else if (type.equals(AllFanProcessingTypes.SPLASHING)) {
-            cap.setTemperature(HeatCapability.adjustTempTowards(cap.getTemperature(),0,8));
+            int target = 0;
+            if (cap.getTemperature() > target) {
+                cap.setTemperature(HeatCapability.adjustTempTowards(cap.getTemperature(), 0, 8));
+                heatApplied = true;
+            }
         } else {
-            cap.setTemperature(cap.getTemperature() - 2F);
-            if(cap.getTemperature() <= 0F) {
-                cap.setTemperature(0F);
+            int target = 0;
+            if (cap.getTemperature() > target) {
+                cap.setTemperature(cap.getTemperature() - 2F);
+                if (cap.getTemperature() <= 0F) {
+                    cap.setTemperature(0F);
+                }
+                heatApplied = true;
             }
         }
+        return heatApplied;
     }
 
     @Unique
-    private static ItemStack applyTFCHeatingRecipe(ItemStack inputStack, IHeat cap){
+    private static ItemStack applyTFCHeatingRecipe(ItemStack inputStack, IHeat cap, FanProcessingType type){
         HeatingRecipe recipe = HeatingRecipe.getRecipe(inputStack);
 
         if (recipe!=null){
@@ -64,7 +80,10 @@ public class MixinFanProcessing {
                     return ItemStack.EMPTY; //Melting recipe input is distorted
                 }
 
-                if(FoodCapability.has(output)) FoodCapability.applyTrait(output, FoodTraits.WOOD_GRILLED);
+                if(FoodCapability.has(output)) {
+                    if (type == AllFanProcessingTypes.SMOKING) FoodCapability.applyTrait(output, FoodTraits.WOOD_GRILLED);
+                    else if (type == AllFanProcessingTypes.BLASTING) FoodCapability.applyTrait(output, FoodTraits.CHARCOAL_GRILLED);
+                }
 
                 output.setCount(inputStack.getCount());
                 return output;
@@ -78,7 +97,7 @@ public class MixinFanProcessing {
             at = {@At("HEAD")},
             cancellable = true
     )
-    private static void applyProcessing(TransportedItemStack transported, Level world, FanProcessingType type,CallbackInfoReturnable<TransportedItemStackHandlerBehaviour.TransportedResult> cir) {
+    private static void applyProcessing(TransportedItemStack transported, Level world, FanProcessingType type, CallbackInfoReturnable<TransportedItemStackHandlerBehaviour.TransportedResult> cir) {
 
         ItemStack inputStack = transported.stack;
 
@@ -90,8 +109,8 @@ public class MixinFanProcessing {
 
             IHeat cap = HeatCapability.get(inputStack);
 
-            MixinFanProcessing.applyTemp(inputStack, cap, type, world.registryAccess());
-            ItemStack result = MixinFanProcessing.applyTFCHeatingRecipe(inputStack, cap);
+            boolean heatApplied = MixinFanProcessing.applyTemp(inputStack, cap, type, world.registryAccess());
+            ItemStack result = MixinFanProcessing.applyTFCHeatingRecipe(inputStack, cap, type);
 
             if(result.equals(inputStack)){
                 //cir.setReturnValue(TransportedItemStackHandlerBehaviour.TransportedResult.doNothing());
@@ -105,7 +124,7 @@ public class MixinFanProcessing {
                 newTransportedStack.stack = result;
                 cir.setReturnValue(TransportedItemStackHandlerBehaviour.TransportedResult.convertTo(newTransportedStack));
             }
-            cir.cancel();
+            if (heatApplied) cir.cancel();
         }
     }
 
@@ -124,7 +143,7 @@ public class MixinFanProcessing {
             IHeat cap = HeatCapability.get(inputStack);
 
             MixinFanProcessing.applyTemp(inputStack, cap, type, entity.level().registryAccess());
-            ItemStack result = MixinFanProcessing.applyTFCHeatingRecipe(inputStack, cap);
+            ItemStack result = MixinFanProcessing.applyTFCHeatingRecipe(inputStack, cap, type);
 
             if(result.equals(inputStack)){
                 cir.setReturnValue(false);

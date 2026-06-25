@@ -49,7 +49,7 @@ public class ModTags {
         }
 
         private static TagKey<Item> forgeTag(String name) {
-            ResourceLocation tagRS = ResourceLocation.tryBuild("forge", name);
+            ResourceLocation tagRS = ResourceLocation.tryBuild("c", name);
             return tagRS != null ? ItemTags.create(tagRS) : null;
         }
     }

@@ -22,7 +22,12 @@
     "blockEnitites.accessors.BasinOperatingBlockEntityAccessor",
     "blockEnitites.accessors.BlockEntityAccessor",
     "blockEnitites.accessors.SmartBlockEntityAccessor",
-    "jei.MixinBasinCategory"
+    "jei.MixinBasinCategory",
+    "chains.MixinChainConveyorBlock",
+    "chains.MixinChainConveyorBlockEntity",
+    "chains.MixinChainConveyorConnectionHandler",
+    "chains.MixinChainConveyorConnectionPacket",
+    "chains.MixinChainConveyorRenderer"
   ],
   "client": [
     "MixinCreateRecipeCategory"
