@@ -229,7 +229,7 @@ public class WoodenCogHeatedMixingRecipeGen extends WoodenCogProcessinRecipeGen{
                 .withItemIngredients(
                         FoodIngredient.of(Ingredient.of(new ItemStack(ItemAccess.egg))))
                 .withFluidIngredients(
-                        CogFluidUtil.ingredient(Fluids.WATER.getFlowing(),100))
+                        CogFluidUtil.ingredient(Fluids.WATER/*.getFlowing()*/,100))
                 .withItemOutputs(
                         FoodProcessingOutput.Builder.create().withItem(ItemAccess.boiledEgg, 1).build())
                 .requiresHeat(WoodenCogHeatCondition.of(150))
@@ -239,7 +239,7 @@ public class WoodenCogHeatedMixingRecipeGen extends WoodenCogProcessinRecipeGen{
                 .withItemIngredients(
                         FoodIngredient.of(Ingredient.of(new ItemStack(ItemAccess.riceGrain))))
                 .withFluidIngredients(
-                        CogFluidUtil.ingredient(Fluids.WATER.getFlowing(),100))
+                        CogFluidUtil.ingredient(Fluids.WATER/*.getFlowing()*/,100))
                 .withItemOutputs(
                         FoodProcessingOutput.Builder.create().withItem(ItemAccess.cookedRice, 1).build())
                 .requiresHeat(WoodenCogHeatCondition.of(150))
@@ -268,7 +268,7 @@ public class WoodenCogHeatedMixingRecipeGen extends WoodenCogProcessinRecipeGen{
                         FoodIngredient.of(Ingredient.of(ModTags.Compat.USABLE_IN_SOUP)),
                         FoodIngredient.of(Ingredient.of(ModTags.Compat.USABLE_IN_SOUP)),
                         FoodIngredient.of(Ingredient.of(ModTags.Compat.USABLE_IN_SOUP)))
-                .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER.getFlowing(),100))
+                .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER/*.getFlowing()*/,100))
                 .withItemOutputs(new SoupProcessingOutput(Items.BOWL,3,1))
                 .requiresHeat(WoodenCogHeatCondition.of(150))
                 .duration(500)
@@ -297,7 +297,7 @@ public class WoodenCogHeatedMixingRecipeGen extends WoodenCogProcessinRecipeGen{
                         FoodIngredient.of(Ingredient.of(ModTags.Compat.USABLE_IN_SOUP)),
                         FoodIngredient.of(Ingredient.of(ModTags.Compat.USABLE_IN_SOUP)),
                         FoodIngredient.of(Ingredient.of(ModTags.Compat.USABLE_IN_SOUP)))
-                .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER.getFlowing(),100))
+                .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER/*.getFlowing()*/,100))
                 .withItemOutputs(new SoupProcessingOutput(ItemAccess.ceramicBowl,3,1))
                 .requiresHeat(WoodenCogHeatCondition.of(150))
                 .duration(500)
@@ -316,7 +316,7 @@ public class WoodenCogHeatedMixingRecipeGen extends WoodenCogProcessinRecipeGen{
                             FoodIngredient.of(Ingredient.of(TFCItems.EMPTY_JAR_WITH_LID.get())),
                             FoodIngredient.of(Ingredient.of(fruit)),
                             FoodIngredient.of(Ingredient.of(fruit)))
-                    .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER.getFlowing(),100))
+                    .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER/*.getFlowing()*/,100))
                     .withItemOutputs(output2)
                     .requiresHeat(WoodenCogHeatCondition.of(104))
                     .duration(4000)
@@ -334,7 +334,7 @@ public class WoodenCogHeatedMixingRecipeGen extends WoodenCogProcessinRecipeGen{
                             FoodIngredient.of(Ingredient.of(fruit)),
                             FoodIngredient.of(Ingredient.of(fruit)),
                             FoodIngredient.of(Ingredient.of(fruit)))
-                    .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER.getFlowing(),100))
+                    .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER/*.getFlowing()*/,100))
                     .withItemOutputs(output3)
                     .requiresHeat(WoodenCogHeatCondition.of(104))
                     .duration(4000)
@@ -354,7 +354,7 @@ public class WoodenCogHeatedMixingRecipeGen extends WoodenCogProcessinRecipeGen{
                             FoodIngredient.of(Ingredient.of(fruit)),
                             FoodIngredient.of(Ingredient.of(fruit)),
                             FoodIngredient.of(Ingredient.of(fruit)))
-                    .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER.getFlowing(),100))
+                    .withFluidIngredients(CogFluidUtil.ingredient(Fluids.WATER/*.getFlowing()*/,100))
                     .withItemOutputs(output4)
                     .requiresHeat(WoodenCogHeatCondition.of(104))
                     .duration(4000)

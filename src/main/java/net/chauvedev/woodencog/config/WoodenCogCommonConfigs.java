@@ -1,8 +1,10 @@
 package net.chauvedev.woodencog.config;
 
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.config.ModConfig.Type;
+//import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.Range;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,7 +31,7 @@ public class WoodenCogCommonConfigs {
     public static final ModConfigSpec.ConfigValue<Integer> WOODEN_GENERATOR_WIND_FACTOR;
     public static final ModConfigSpec.ConfigValue<Integer> WOODEN_GENERATOR_SPEED_FACTOR;
 
-    public static final Map<String, ModConfigSpec.ConfigValue<List<Integer>>> MATERIAL_PROPERTIES = new HashMap<>();
+    public static final Map<String, ModConfigSpec.ConfigValue<List<? extends Integer>>> MATERIAL_PROPERTIES = new HashMap<>();
 
     static {
         BUILDER.push("woodencog");
@@ -143,13 +145,23 @@ public class WoodenCogCommonConfigs {
 
         SPEC = BUILDER.build();
     }
-
+/*
     private static void addDensityConfig(String itemId, int density, int heatCapacity) {
         MATERIAL_PROPERTIES.put(itemId, BUILDER.define(itemId, Arrays.asList(density,heatCapacity)));
     }
+ */
+    private static void addDensityConfig(String itemId, int density, int heatCapacity) {
+        MATERIAL_PROPERTIES.put(itemId, BUILDER.defineList(List.of(itemId), () -> {
+            return List.of(density, heatCapacity);
+        }, () -> {
+            return 0;
+        }, (element) -> {
+            return element instanceof Integer;
+        }, Range.of(2, 2)));
+    }
 
     public static void register(ModContainer container) {
-        container.registerConfig(ModConfig.Type.COMMON, WoodenCogCommonConfigs.SPEC, "woodencog-common.toml");
+        container.registerConfig(Type.COMMON, WoodenCogCommonConfigs.SPEC, "woodencog-common.toml");
     }
 }
 

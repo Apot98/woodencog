@@ -165,11 +165,17 @@ public abstract class MixinBasinBlockEntity implements BasinBlockEntityExtended 
         if(temp <= 0) return;
         ChatFormatting color = ChatFormatting.GRAY;
         Component displayName = Component.literal("");
-        for(Heat heat : Heat.values()){
-            if(temp > heat.getMin() && temp <= heat.getMax()){
-                color = heat.getColor();
-                displayName = Component.literal(heat.name());
-                break;
+        if (temp > Heat.BRILLIANT_WHITE.getMax()) {
+            color = Heat.BRILLIANT_WHITE.getColor();
+            displayName = Component.literal(Heat.BRILLIANT_WHITE.name());
+        }
+        else {
+            for (Heat heat : Heat.values()) {
+                if (temp > heat.getMin() && temp <= heat.getMax()) {
+                    color = heat.getColor();
+                    displayName = Component.literal(heat.name());
+                    break;
+                }
             }
         }
         CreateLang.text("").add(Component.literal(temp+" ºC ")).style(color).add(displayName).forGoggles(tooltip, 0);

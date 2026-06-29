@@ -157,7 +157,7 @@ public class CTTransformerBlockEntity extends SplitShaftBlockEntity implements R
 
     /**
      * Marks a block entity for syncing without sending a block update, also internally marks dirty.
-     * Use preferentially over {@link InventoryBlockEntity#markForBlockUpdate()} if there's no reason to have a block update.
+     * Use preferentially over {[at]link InventoryBlockEntity#markForBlockUpdate()} if there's no reason to have a block update.
      */
     public void tfc_be_markForSync() {
         sendVanillaUpdatePacket();
