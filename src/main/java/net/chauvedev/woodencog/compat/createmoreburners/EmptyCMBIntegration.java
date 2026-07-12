@@ -3,7 +3,7 @@ package net.chauvedev.woodencog.compat.createmoreburners;
 import net.dragonegg.moreburners.content.block.entity.BaseBurnerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class EmptyCMBIntegration implements CMBIntegration{
+public class EmptyCMBIntegration implements ICMBIntegration{
     /**
      * Get a tfc temperature value for a given blockEntity
      *

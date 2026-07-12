@@ -25,7 +25,7 @@ public class WoodenCogHeatedCompactingRecipeGen extends WoodenCogProcessinRecipe
                     HeatedIngredient.of(Ingredient.of(ingot),metal.getWeldingTemperature(),3000),
                     HeatedIngredient.of(Ingredient.of(ingot),metal.getWeldingTemperature(),3000),
                     HeatedIngredient.of(Ingredient.of(ItemAccess.flux),0,3000))
-                .withItemOutputs(HeatedProcessingOutput.of(doubleIngot,1,1,0,true,0))
+                .withItemOutputs(HeatedProcessingOutput.of(doubleIngot,1,1,metal.getWeldingTemperature(),true,0))
                 .build(recipeOutput, WoodenCog.asResource(LOCATION+"/double_"+metal.id()));
         });
     }

@@ -1,6 +1,7 @@
 package net.chauvedev.woodencog.mixin;
 
 import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes;
+import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import net.dries007.tfc.common.blocks.devices.FirepitBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -16,7 +17,7 @@ public class MixinSmokingType {
     public void isValidAtReturn(Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir){
         if(!cir.getReturnValue()){
             BlockState blockState = level.getBlockState(pos);
-            if(blockState.hasProperty(FirepitBlock.LIT)){
+            if(!blockState.hasProperty(BlazeBurnerBlock.HEAT_LEVEL) && blockState.hasProperty(FirepitBlock.LIT)){
                 cir.setReturnValue(blockState.getValue(FirepitBlock.LIT));
             }
         }

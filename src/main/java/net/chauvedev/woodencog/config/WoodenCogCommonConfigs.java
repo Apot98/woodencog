@@ -30,6 +30,13 @@ public class WoodenCogCommonConfigs {
     public static final ModConfigSpec.ConfigValue<Integer> WOODEN_GENERATOR_BASE_SU;
     public static final ModConfigSpec.ConfigValue<Integer> WOODEN_GENERATOR_WIND_FACTOR;
     public static final ModConfigSpec.ConfigValue<Integer> WOODEN_GENERATOR_SPEED_FACTOR;
+    public static final ModConfigSpec.ConfigValue<Float> BASIC_BURNER_MAX_FAN_SPEED;
+    public static final ModConfigSpec.ConfigValue<Float> BASIC_BURNER_MAX_FUEL_RATE;
+    public static final ModConfigSpec.ConfigValue<Float> BASIC_BURNER_MAX_TEMP_MULT;
+    public static final ModConfigSpec.ConfigValue<Float> BASIC_BURNER_MIN_FAN_SPEED;
+    public static final ModConfigSpec.ConfigValue<Float> BASIC_BURNER_MIN_FUEL_RATE;
+    public static final ModConfigSpec.ConfigValue<Float> BASIC_BURNER_MIN_TEMP_MULT;
+    public static final ModConfigSpec.ConfigValue<Float> RESISTIVE_HEATER_MAX_TEMP;
 
     public static final Map<String, ModConfigSpec.ConfigValue<List<? extends Integer>>> MATERIAL_PROPERTIES = new HashMap<>();
 
@@ -48,10 +55,10 @@ public class WoodenCogCommonConfigs {
             BUILDER.comment("Blaze Burner Temperature");
 
             BLAZE_BURNER_NONE = BUILDER.define("blaze_burner_none", 0.0D);
-            BLAZE_BURNER_SMOULDERING = BUILDER.define("blaze_burner_smouldering", 80.0D);
+            BLAZE_BURNER_SMOULDERING = BUILDER.define("blaze_burner_smouldering", 200.0D);
             BLAZE_BURNER_FADING = BUILDER.define("blaze_burner_fading", 750.0D);
             BLAZE_BURNER_KINDLED = BUILDER.define("blaze_burner_kindled", 1350.0D);
-            BLAZE_BURNER_SEETHING = BUILDER.define("blaze_burner_seething", 2000.0D);
+            BLAZE_BURNER_SEETHING = BUILDER.define("blaze_burner_seething", 1800.0D);
 
         BUILDER.pop();
 
@@ -62,6 +69,26 @@ public class WoodenCogCommonConfigs {
             WOODEN_GENERATOR_BASE_SU = BUILDER.define("wooden_generator_base_su", 64);
             WOODEN_GENERATOR_WIND_FACTOR = BUILDER.define("wooden_generator_wind_factor", 4);
             WOODEN_GENERATOR_SPEED_FACTOR = BUILDER.define("wooden_generator_speed_factor", 16);
+        BUILDER.pop();
+
+        BUILDER.push("basic_burner");
+            BUILDER.comment("Maximum speed an encased fan needs to fully empower a basic burner to maximum temperature");
+            BASIC_BURNER_MAX_FAN_SPEED = BUILDER.define("basic_burner_max_fan_speed", 256.0f);
+            BUILDER.comment("Maximum rate of fuel consumption when fully empowered");
+            BASIC_BURNER_MAX_FUEL_RATE = BUILDER.define("basic_burner_max_fuel_rate", 2.5f);
+            BUILDER.comment("Maximum fuel temperature multiplier when fully empowered");
+            BASIC_BURNER_MAX_TEMP_MULT = BUILDER.define("basic_burner_max_temp_multiplier", 2.0f);
+            BUILDER.comment("Minimum speed an encased fan needs to empower a basic burner");
+            BASIC_BURNER_MIN_FAN_SPEED = BUILDER.define("basic_burner_min_fan_speed", 32.0f);
+            BUILDER.comment("Minimum rate of fuel consumption when not empowered");
+            BASIC_BURNER_MIN_FUEL_RATE = BUILDER.define("basic_burner_min_fuel_rate", 1.0f);
+            BUILDER.comment("Minimunm fuel temperature multiplier when not empowered");
+            BASIC_BURNER_MIN_TEMP_MULT = BUILDER.define("basic_burner_min_temp_multiplier", 1.0f);
+        BUILDER.pop();
+
+        BUILDER.push("resistive_heater");
+            BUILDER.comment("Maximum temperature a resistive heater can reach");
+            RESISTIVE_HEATER_MAX_TEMP = BUILDER.define("resistive_heater_max_temp", 2500.0f);
         BUILDER.pop();
 
         NETHERITE_RESKIN = BUILDER.comment("Change netherite divingGear to look like red steel armor. (wearing netherite pants disables re-skin)").define("netherite_reskin", true);

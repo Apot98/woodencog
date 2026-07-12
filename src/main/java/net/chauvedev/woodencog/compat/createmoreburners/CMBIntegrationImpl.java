@@ -5,7 +5,7 @@ import net.chauvedev.woodencog.utils.CogUtil;
 import net.dragonegg.moreburners.content.block.entity.BaseBurnerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class CMBIntegrationImpl implements CMBIntegration{
+public class CMBIntegrationImpl implements ICMBIntegration{
     /**
      * Get a tfc temperature value for a given blockEntity
      *
@@ -14,7 +14,6 @@ public class CMBIntegrationImpl implements CMBIntegration{
     @Override
     public float getTFCTemperatureOf(BlockEntity be) {
         if(be instanceof BaseBurnerBlockEntity burner){
-
             return (float) ((burner.heat / 300.0) * WoodenCogCommonConfigs.BLAZE_BURNER_SEETHING.get());
         }
         return 0;

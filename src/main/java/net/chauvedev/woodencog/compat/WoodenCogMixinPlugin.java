@@ -15,8 +15,11 @@ public class WoodenCogMixinPlugin implements IMixinConfigPlugin {
     //Thanks to Adorn :) https://github.com/Juuxel/Adorn/tree/bd70a2955640897bc68ff1f4f201fe5e6c10bc32
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
             "net.chauvedev.woodencog.mixin.heat.MixinBasicBurnerBlockEntity", Compat::isCLHInstalled,
+            "net.chauvedev.woodencog.mixin.MixinBasicBurnerEmpowering", Compat::isCLHInstalled,
             "net.chauvedev.woodencog.mixin.heat.MixinLiquidBlazeBurnerBlockEntity", Compat::isCCAInstalled,
-            "net.chauvedev.woodencog.mixin.heat.MixinBaseBurnerBlockEntity", Compat::isCMBInstalled
+            "net.chauvedev.woodencog.mixin.heat.MixinBaseBurnerBlockEntity", Compat::isCMBInstalled,
+            "net.chauvedev.woodencog.mixin.heat.MixinResistiveHeaterBlockEntity", Compat::isCEEInstalled,
+            "net.chauvedev.woodencog.mixin.heat.MixinDieselBurnerBlockEntity", Compat::isCDGInstalled
     );
 
     @Override

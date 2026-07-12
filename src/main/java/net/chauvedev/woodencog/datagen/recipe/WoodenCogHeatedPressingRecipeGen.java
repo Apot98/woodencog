@@ -27,7 +27,7 @@ public class WoodenCogHeatedPressingRecipeGen extends WoodenCogProcessinRecipeGe
             if(!metal.hasDoubleIngot()) return;
             this.builder()
                     .withItemIngredients(HeatedIngredient.of(Ingredient.of(doubleIngot), metal.getForginTemperature(),3000))
-                    .withItemOutputs(HeatedProcessingOutput.of(sheet,1,1,0,true,0))
+                    .withItemOutputs(HeatedProcessingOutput.of(sheet,1,1, metal.getForginTemperature(),true,0))
                     .build(recipeOutput, WoodenCog.asResource(LOCATION+"/sheet_"+metal.id()));
         });
     }
@@ -35,12 +35,12 @@ public class WoodenCogHeatedPressingRecipeGen extends WoodenCogProcessinRecipeGe
     private void ironBloom(RecipeOutput recipeOutput){
         new HeatedProcessingRecipeBuilder<>(HeatedPressingRecipe::new)
                 .withItemIngredients(HeatedIngredient.of(Ingredient.of(ItemAccess.rawIron), (int) Heat.ORANGE.getMin(),3000))
-                .withItemOutputs(HeatedProcessingOutput.of(ItemAccess.refinedIron,1,1,0,true,0))
+                .withItemOutputs(HeatedProcessingOutput.of(ItemAccess.refinedIron,1,1,(int) Heat.ORANGE.getMin(),true,0))
                 .build(recipeOutput,WoodenCog.asResource("refined_iron_bloom"));
 
         new HeatedProcessingRecipeBuilder<>(HeatedPressingRecipe::new)
                 .withItemIngredients(HeatedIngredient.of(Ingredient.of(ItemAccess.refinedIron), (int) Heat.ORANGE.getMin(),3000))
-                .withItemOutputs(HeatedProcessingOutput.of(ItemAccess.wroughtIron,1,1,0,true,0))
+                .withItemOutputs(HeatedProcessingOutput.of(ItemAccess.wroughtIron,1,1,(int) Heat.ORANGE.getMin(),true,0))
                 .build(recipeOutput, WoodenCog.asResource("wrought_iron"));
     }
 

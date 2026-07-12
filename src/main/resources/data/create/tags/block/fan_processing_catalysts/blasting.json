@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "createlowheated:basic_burner", "required": false},
+    {"id": "electroenergetics:resistive_heater", "required": false},
+    {"id": "createdieselgenerators:burner", "required": false}
+  ]
+}

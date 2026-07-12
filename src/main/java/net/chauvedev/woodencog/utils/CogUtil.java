@@ -124,8 +124,11 @@ public class CogUtil {
             return BlazeBurnerBlock.HeatLevel.FADING;
         } else if(temperature >= WoodenCogCommonConfigs.BLAZE_BURNER_SMOULDERING.get()){
             return BlazeBurnerBlock.HeatLevel.SMOULDERING;
-        } else if(temperature >= WoodenCogCommonConfigs.BLAZE_BURNER_NONE.get()){
-            return BlazeBurnerBlock.HeatLevel.NONE;
+        } else if(Compat.isCLHLoaded()) {
+            float t = Compat.CLH_INSTANCE.lowHeatTemp(BlazeBurnerBlock.HeatLevel.valueOf("LOW"));
+            if(t > 0 && temperature >= t) {
+                return BlazeBurnerBlock.HeatLevel.valueOf("LOW");
+            } else return BlazeBurnerBlock.HeatLevel.NONE;
         } else {
             return BlazeBurnerBlock.HeatLevel.NONE;
         }

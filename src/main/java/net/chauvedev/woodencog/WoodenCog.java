@@ -1,6 +1,7 @@
 package net.chauvedev.woodencog;
 
 import com.mojang.logging.LogUtils;
+import com.simibubi.create.api.contraption.BlockMovementChecks;
 import net.chauvedev.woodencog.block.WoodenCogCreativeModeTabs;
 import net.chauvedev.woodencog.block.WoodenCogRegistrate;
 import net.chauvedev.woodencog.block.generator.WoodenGeneratorRenderer;
@@ -8,6 +9,8 @@ import net.chauvedev.woodencog.block.transformer.CTTransformerRenderer;
 import net.chauvedev.woodencog.block.WoodencogBlockEntityTypes;
 import net.chauvedev.woodencog.compat.Compat;
 import net.chauvedev.woodencog.config.WoodenCogCommonConfigs;
+import net.chauvedev.woodencog.content.fan_types.WoodenCogFanProcessingTypes;
+import net.chauvedev.woodencog.contraption.WoodenCogBlockMovementChecks;
 import net.chauvedev.woodencog.datagen.WoodenCogDatagen;
 import net.chauvedev.woodencog.datapack.DataPackRegistries;
 import net.chauvedev.woodencog.interaction.CustomArmInteractionPointTypes;
@@ -59,6 +62,9 @@ public class WoodenCog {
         modEventBus.addListener(WoodenCog::onRegister);
         modEventBus.addListener(WoodenCogDatagen::gatherData);
         modEventBus.addListener(DataPackRegistries::register);
+
+        BlockMovementChecks.registerBrittleCheck(new WoodenCogBlockMovementChecks.WoodenCogBrittleCheck());
+        BlockMovementChecks.registerAttachedCheck(new WoodenCogBlockMovementChecks.WoodenCogAttachedCheck());
     }
 
     public static WoodenCogRegistrate registrate() {
@@ -67,6 +73,7 @@ public class WoodenCog {
 
     public static void onRegister(final RegisterEvent event) {
         CustomArmInteractionPointTypes.init();
+        WoodenCogFanProcessingTypes.init();
     }
 
     public void onClientSetup(final FMLClientSetupEvent event) {
